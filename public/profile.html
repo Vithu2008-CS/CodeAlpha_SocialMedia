@@ -3,26 +3,56 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Profile · Mini Social</title>
+
+  <!-- SEO -->
+  <title>Profile — NexusConnect Social</title>
+  <meta name="description" content="View user profiles on NexusConnect. See posts, followers, following, and connect with people in the community." />
+  <meta name="keywords" content="profile, user, social media, NexusConnect, followers" />
+  <link rel="canonical" href="/profile.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="User Profile — NexusConnect" />
+  <meta property="og:description" content="View user profiles, posts, and connections on NexusConnect." />
+  <meta property="og:type" content="profile" />
+  <meta property="og:url" content="/profile.html" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="User Profile — NexusConnect" />
+  <meta name="twitter:description" content="View profiles and connect with people." />
+
+  <!-- Theme & Favicon -->
+  <meta name="theme-color" content="#0a0e1a" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔮</text></svg>" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
   <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
-  <header id="nav"></header>
-  <main class="container">
-    <section class="card" id="profileCard">
+  <header id="nav" role="banner"></header>
+
+  <main class="container" role="main">
+    <section class="card" id="profileCard" aria-label="User profile">
       <div class="spinner">Loading profile…</div>
     </section>
 
-    <h3 id="postsHeading" style="margin:18px 4px 12px; display:none">Posts</h3>
-    <div id="userPosts"></div>
+    <!-- Tab content areas -->
+    <div id="tabContent">
+      <div id="userPosts"></div>
+      <div id="userFollowers" style="display:none"></div>
+      <div id="userFollowing" style="display:none"></div>
+    </div>
     <div id="postsStatus" class="spinner" style="display:none"></div>
   </main>
 
   <!-- Edit profile modal -->
-  <div class="modal-backdrop" id="editBackdrop">
+  <div class="modal-backdrop" id="editBackdrop" role="dialog" aria-label="Edit profile">
     <div class="modal">
       <h2>Edit profile</h2>
-      <div class="error-box" id="editError"></div>
+      <div class="error-box" id="editError" role="alert"></div>
       <form id="editForm">
         <div class="field">
           <label for="editDisplayName">Display name</label>
@@ -43,6 +73,19 @@
       </form>
     </div>
   </div>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-tech">
+        <span class="footer-badge">Node.js</span>
+        <span class="footer-badge">Express</span>
+        <span class="footer-badge">Prisma</span>
+        <span class="footer-badge">SQLite</span>
+        <span class="footer-badge">JWT</span>
+      </div>
+      <p>&copy; 2026 NexusConnect — CodeAlpha Task 2. Built with ❤️</p>
+    </div>
+  </footer>
 
   <script src="/js/api.js"></script>
   <script src="/js/ui.js"></script>

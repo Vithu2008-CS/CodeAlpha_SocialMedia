@@ -3,33 +3,77 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Feed · Mini Social</title>
+
+  <!-- SEO -->
+  <title>Feed — NexusConnect Social</title>
+  <meta name="description" content="Your personalized social feed. See posts from people you follow, share your thoughts, and engage with the community on NexusConnect." />
+  <meta name="keywords" content="social media, feed, posts, community, NexusConnect" />
+  <link rel="canonical" href="/index.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="NexusConnect — Your Social Feed" />
+  <meta property="og:description" content="See posts from people you follow, share your thoughts, and engage with the community." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="/index.html" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="NexusConnect — Your Social Feed" />
+  <meta name="twitter:description" content="See posts from people you follow, share your thoughts, and engage with the community." />
+
+  <!-- Theme & Favicon -->
+  <meta name="theme-color" content="#0a0e1a" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔮</text></svg>" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
   <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
-  <header id="nav"></header>
-  <main class="container">
+  <header id="nav" role="banner"></header>
+
+  <main class="container" role="main">
+    <h1 class="sr-only">Your Feed</h1>
+
     <!-- Compose box -->
-    <section class="card">
+    <section class="card" aria-label="Create a new post">
       <form id="composeForm" class="compose">
         <div id="composeAvatar"></div>
         <div class="grow">
-          <textarea id="composeContent" placeholder="What's on your mind?" maxlength="1000" required></textarea>
-          <input id="composeImage" placeholder="Optional image URL (https://...)" maxlength="500" style="margin-top:8px" />
+          <textarea id="composeContent" placeholder="What's on your mind?" maxlength="1000" required aria-label="Post content"></textarea>
+          <input id="composeImage" placeholder="Optional image URL (https://...)" maxlength="500" aria-label="Image URL" style="margin-top:8px" />
           <div class="compose-actions">
-            <span class="small muted" id="composeHint"></span>
-            <button class="btn" type="submit" id="postBtn">Post</button>
+            <span class="char-counter" id="composeHint"></span>
+            <button class="btn" type="submit" id="postBtn" aria-label="Publish post">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              Post
+            </button>
           </div>
         </div>
       </form>
     </section>
 
-    <div id="feed"></div>
+    <div id="feed" role="feed" aria-label="Social feed"></div>
     <div id="feedStatus" class="spinner">Loading feed…</div>
     <div class="center" style="margin-top:8px">
-      <button class="btn btn-ghost" id="loadMore" style="display:none">Load more</button>
+      <button class="btn btn-ghost" id="loadMore" style="display:none" aria-label="Load more posts">Load more</button>
     </div>
   </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-tech">
+        <span class="footer-badge">Node.js</span>
+        <span class="footer-badge">Express</span>
+        <span class="footer-badge">Prisma</span>
+        <span class="footer-badge">SQLite</span>
+        <span class="footer-badge">JWT</span>
+      </div>
+      <p>&copy; 2026 NexusConnect — CodeAlpha Task 2. Built with ❤️</p>
+    </div>
+  </footer>
 
   <script src="/js/api.js"></script>
   <script src="/js/ui.js"></script>

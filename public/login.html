@@ -3,34 +3,65 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login · Mini Social</title>
+
+  <!-- SEO -->
+  <title>Login — NexusConnect Social</title>
+  <meta name="description" content="Sign in to NexusConnect, your mini social media platform. Connect with friends, share posts, and join the conversation." />
+  <meta name="keywords" content="login, sign in, social media, NexusConnect" />
+  <link rel="canonical" href="/login.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Login — NexusConnect" />
+  <meta property="og:description" content="Sign in to connect with friends and share your world." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="/login.html" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Login — NexusConnect" />
+  <meta name="twitter:description" content="Sign in to connect with friends and share your world." />
+
+  <!-- Theme & Favicon -->
+  <meta name="theme-color" content="#0a0e1a" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔮</text></svg>" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
   <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
-  <div class="center-page">
-    <div class="card auth-card">
-      <h1>🌐 Mini Social</h1>
+  <main class="center-page" role="main">
+    <article class="card auth-card">
+      <h1>NexusConnect</h1>
       <p class="auth-sub muted">Welcome back. Sign in to continue.</p>
-      <div class="error-box" id="error"></div>
-      <form id="loginForm">
+      <div class="error-box" id="error" role="alert"></div>
+      <form id="loginForm" aria-label="Login form">
         <div class="field">
           <label for="username">Username or email</label>
           <input id="username" name="username" autocomplete="username" required autofocus />
         </div>
         <div class="field">
           <label for="password">Password</label>
-          <input id="password" name="password" type="password" autocomplete="current-password" required />
+          <div class="password-wrapper">
+            <input id="password" name="password" type="password" autocomplete="current-password" required />
+            <button type="button" class="password-toggle" id="passwordToggle" aria-label="Toggle password visibility">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
         </div>
         <button class="btn btn-block" type="submit" id="submitBtn">Log in</button>
       </form>
-      <p class="center muted" style="margin-top:16px">
+      <p class="center muted" style="margin-top:18px">
         No account? <a href="/register.html">Create one</a>
       </p>
       <p class="center small muted" style="margin-top:12px">
         Demo: <b>alice</b> / <b>password123</b>
       </p>
-    </div>
-  </div>
+    </article>
+  </main>
+
   <script src="/js/api.js"></script>
   <script src="/js/ui.js"></script>
   <script src="/js/login.js"></script>

@@ -3,17 +3,59 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Post · Mini Social</title>
+
+  <!-- SEO -->
+  <title>Post — NexusConnect Social</title>
+  <meta name="description" content="View a post and its full comment thread on NexusConnect. Like, comment, and share posts with the community." />
+  <meta name="keywords" content="post, comments, social media, NexusConnect, discussion" />
+  <link rel="canonical" href="/post.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Post — NexusConnect" />
+  <meta property="og:description" content="View the full post and join the conversation." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="/post.html" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Post — NexusConnect" />
+  <meta name="twitter:description" content="View the full post and join the conversation." />
+
+  <!-- Theme & Favicon -->
+  <meta name="theme-color" content="#0a0e1a" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔮</text></svg>" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
   <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
-  <header id="nav"></header>
-  <main class="container">
-    <p style="margin:0 4px 12px"><a href="/index.html">← Back to feed</a></p>
-    <div id="postContainer">
+  <header id="nav" role="banner"></header>
+
+  <main class="container" role="main">
+    <a href="/index.html" class="back-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Back to feed
+    </a>
+    <article id="postContainer" aria-label="Post and comments">
       <div class="spinner">Loading post…</div>
-    </div>
+    </article>
   </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-tech">
+        <span class="footer-badge">Node.js</span>
+        <span class="footer-badge">Express</span>
+        <span class="footer-badge">Prisma</span>
+        <span class="footer-badge">SQLite</span>
+        <span class="footer-badge">JWT</span>
+      </div>
+      <p>&copy; 2026 NexusConnect — CodeAlpha Task 2. Built with ❤️</p>
+    </div>
+  </footer>
 
   <script src="/js/api.js"></script>
   <script src="/js/ui.js"></script>
