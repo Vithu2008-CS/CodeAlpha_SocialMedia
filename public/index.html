@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feed · Mini Social</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <header id="nav"></header>
+  <main class="container">
+    <!-- Compose box -->
+    <section class="card">
+      <form id="composeForm" class="compose">
+        <div id="composeAvatar"></div>
+        <div class="grow">
+          <textarea id="composeContent" placeholder="What's on your mind?" maxlength="1000" required></textarea>
+          <input id="composeImage" placeholder="Optional image URL (https://...)" maxlength="500" style="margin-top:8px" />
+          <div class="compose-actions">
+            <span class="small muted" id="composeHint"></span>
+            <button class="btn" type="submit" id="postBtn">Post</button>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <div id="feed"></div>
+    <div id="feedStatus" class="spinner">Loading feed…</div>
+    <div class="center" style="margin-top:8px">
+      <button class="btn btn-ghost" id="loadMore" style="display:none">Load more</button>
+    </div>
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/postcard.js"></script>
+  <script src="/js/feed.js"></script>
+</body>
+</html>
