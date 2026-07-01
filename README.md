@@ -1,35 +1,69 @@
-# Mini Social Media Platform — CodeAlpha Task 2
+# NexusConnect — Social Media Platform
 
-A full-stack mini social network: register/login, user profiles, posts with images,
-comments, likes, and follow/unfollow with a personalized feed.
+<div align="center">
 
-Built with **Node.js + Express**, **Prisma ORM over SQLite**, **JWT auth + bcrypt**,
-and a dependency-free **vanilla HTML/CSS/JS** frontend served by the same Express server.
+**A full-stack social network with premium dark glassmorphism UI, real-time interactions, and full SEO optimization.**
+
+*Built for the CodeAlpha Internship — Task 2*
+
+[![Node.js](https://img.shields.io/badge/Node.js-24-339933?logo=node.js&logoColor=white)](https://nodejs.org)
+[![Express](https://img.shields.io/badge/Express-4.x-000000?logo=express&logoColor=white)](https://expressjs.com)
+[![Prisma](https://img.shields.io/badge/Prisma-5.x-2D3748?logo=prisma&logoColor=white)](https://www.prisma.io)
+[![SQLite](https://img.shields.io/badge/SQLite-3-003B57?logo=sqlite&logoColor=white)](https://sqlite.org)
+[![JWT](https://img.shields.io/badge/JWT-Auth-000000?logo=jsonwebtokens&logoColor=white)](https://jwt.io)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
+</div>
 
 ---
 
 ## ✨ Features
 
-- **Authentication** — register & login with hashed passwords (bcrypt) and JWT bearer tokens.
-- **User profiles** — avatar, display name, bio; editable for your own profile (modal).
-- **Posts** — create text posts with an optional image URL; delete your own posts.
-- **Feed** — newest-first, paginated feed of posts from people you follow **plus your own**.
-- **Comments** — full comment threads on any post; delete your own comments.
-- **Likes** — like/unlike posts with an **optimistic** UI toggle and live counts.
-- **Follow system** — follow/unfollow users; view followers & following lists; follower/following counts.
-- **Robust API** — JWT-protected write routes, input validation, and a consistent JSON error shape.
+### Core Social Features
+- **Authentication** — Register & login with hashed passwords (bcrypt) and JWT bearer tokens
+- **User Profiles** — Avatar, display name, bio; editable via modal with live preview
+- **Posts** — Create text posts with optional image URLs; delete your own posts
+- **Feed** — Newest-first, paginated feed of posts from people you follow **plus your own**
+- **Comments** — Full comment threads on any post; delete your own comments
+- **Likes** — Like/unlike posts with **optimistic** UI toggle, bounce animation, and live counts
+- **Follow System** — Follow/unfollow users; view followers & following lists; follower/following counts
+- **Search** — Real-time user search from the navbar with instant dropdown results
+- **Robust API** — JWT-protected write routes, input validation, and consistent JSON error shape
+
+### v2.0 Premium Enhancements
+- 🎨 **Dark Glassmorphism UI** — Frosted glass cards, gradient accents, animated mesh background
+- ✨ **Micro-Animations** — Like burst, skeleton loading shimmer, smooth transitions, count-up stats
+- 🔍 **SEO Optimized** — Full meta tags, Open Graph, Twitter Cards, semantic HTML5 on every page
+- 🔎 **User Search** — Live navbar search with debounced API calls and dropdown results
+- 💜 **Animated Like Button** — Bouncing heart with burst CSS animation
+- 🔗 **Share Posts** — Copy permalink to clipboard with toast confirmation
+- 🖼️ **Image Lightbox** — Click post images to view full-size in a dark overlay
+- ♾️ **Infinite Scroll** — Auto-loads next page when scrolling near bottom of feed
+- 💀 **Skeleton Loading** — Shimmer placeholder cards instead of plain "Loading…" text
+- 👤 **Cover Banner** — Auto-generated gradient from username hash on profiles
+- 📊 **Animated Stats** — Profile stat numbers count up from zero with eased animation
+- 🗂️ **Tab Navigation** — Posts / Followers / Following tabs on profile pages
+- 🔒 **Password Toggle** — Eye icon to show/hide password on auth pages
+- 💪 **Password Strength** — Live color bar indicator (weak → strong) on registration
+- 📝 **Character Counter** — Live counter with color change as post limit approaches
+- ⏰ **Timestamp Tooltips** — Hover on relative time to see exact date
+- 🦶 **Global Footer** — Clean footer with tech stack badges on every page
+- 🌐 **Google Fonts (Inter)** — Premium modern typography throughout
+- ♿ **Accessibility** — ARIA labels, semantic HTML, keyboard navigation
 
 ---
 
 ## 🧱 Tech Stack
 
-| Layer     | Technology                                        |
-| --------- | ------------------------------------------------- |
-| Backend   | Node.js, Express.js (ES modules)                  |
-| Database  | SQLite via Prisma ORM                             |
-| Auth      | JWT (Authorization: Bearer) + bcryptjs            |
-| Frontend  | Vanilla HTML + CSS + JavaScript, Fetch API        |
-| Hosting   | Express serves the API **and** the static frontend on one port |
+| Layer      | Technology                                           |
+| ---------- | ---------------------------------------------------- |
+| Backend    | Node.js, Express.js (ES modules)                     |
+| Database   | SQLite via Prisma ORM                                |
+| Auth       | JWT (Authorization: Bearer) + bcryptjs               |
+| Frontend   | Vanilla HTML + CSS + JavaScript, Fetch API           |
+| Design     | Glassmorphism, CSS animations, Inter (Google Fonts)  |
+| SEO        | Meta tags, Open Graph, Twitter Cards, semantic HTML5 |
+| Hosting    | Express serves the API **and** the static frontend on one port |
 
 ---
 
@@ -118,6 +152,11 @@ All endpoints are prefixed with `/api`. Protected (✚) routes require
 | -------- | ----------------- | -------------------------------- |
 | DELETE ✚ | `/comments/:id`   | Delete a comment (author only)   |
 
+### Search *(New in v2.0)*
+| Method | Endpoint          | Description                                |
+| ------ | ----------------- | ------------------------------------------ |
+| GET    | `/search?q=...`   | Search users by username or display name   |
+
 ---
 
 ## 🗂️ Project Structure
@@ -141,14 +180,24 @@ CodeAlpha_SocialMedia/
 │       ├── auth.js           # register / login / me
 │       ├── users.js          # profiles / follow / lists
 │       ├── posts.js          # feed / CRUD / comments / likes
-│       └── comments.js       # delete comment
-├── public/                   # Vanilla frontend (served statically)
-│   ├── index.html            # Feed + compose
-│   ├── login.html / register.html
-│   ├── profile.html          # Profile + edit modal + follow
-│   ├── post.html             # Single post + full thread
-│   ├── css/style.css
-│   └── js/                   # api.js, ui.js, postcard.js + per-page scripts
+│       ├── comments.js       # delete comment
+│       └── search.js         # user search (NEW)
+├── public/                   # Premium dark glassmorphism frontend
+│   ├── index.html            # Feed + compose (SEO optimized)
+│   ├── login.html            # Login with password toggle (SEO)
+│   ├── register.html         # Register with strength meter (SEO)
+│   ├── profile.html          # Profile + tabs + cover banner (SEO)
+│   ├── post.html             # Single post + full thread (SEO)
+│   ├── css/style.css         # Dark glassmorphism design system
+│   └── js/
+│       ├── api.js            # Fetch client + auth storage
+│       ├── ui.js             # Navbar, search, toast, lightbox, skeletons
+│       ├── postcard.js       # Post card: likes, comments, share, lightbox
+│       ├── feed.js           # Infinite scroll feed + skeleton loading
+│       ├── profile.js        # Cover banner, animated stats, tabs
+│       ├── post.js           # Single post page
+│       ├── login.js          # Login + password toggle
+│       └── register.js       # Register + strength meter
 ├── seed.js                   # Demo data
 ├── .env.example
 └── package.json
@@ -166,6 +215,43 @@ CodeAlpha_SocialMedia/
 
 ---
 
+## 🎨 Design System
+
+The frontend uses a custom **dark glassmorphism** design system:
+
+| Element           | Implementation                                        |
+| ----------------- | ---------------------------------------------------- |
+| Color Palette     | Deep navy (`#0a0e1a`) base with cyan/violet/rose accents |
+| Cards             | Frosted glass with `backdrop-filter: blur(16px)`     |
+| Typography        | Inter (Google Fonts) — 400/500/600/700/800 weights   |
+| Buttons           | Gradient backgrounds with hover lift + glow shadow   |
+| Animations        | Like burst, skeleton shimmer, modal slide-in, mesh float |
+| Scrollbar         | Custom thin scrollbar matching dark theme            |
+| Responsive        | Mobile-first with breakpoints at 380px and 600px     |
+
+---
+
+## 🔍 SEO Implementation
+
+Every page includes:
+
+| SEO Element        | Implementation                              |
+| ------------------ | ------------------------------------------- |
+| Title Tags         | Unique, descriptive per page                |
+| Meta Description   | Compelling summary of page content          |
+| Meta Keywords      | Relevant search terms                       |
+| Open Graph         | `og:title`, `og:description`, `og:type`, `og:url` |
+| Twitter Cards      | `twitter:card`, `twitter:title`, `twitter:description` |
+| Canonical URL      | `<link rel="canonical">`                    |
+| Semantic HTML      | `<header>`, `<main>`, `<nav>`, `<article>`, `<section>`, `<footer>` |
+| Heading Hierarchy  | Single `<h1>` per page with proper nesting  |
+| Favicon            | SVG emoji-based data URI                    |
+| Theme Color        | `<meta name="theme-color">` for mobile      |
+| ARIA Labels        | All interactive elements have accessibility labels |
+| Font Preconnect    | `<link rel="preconnect">` for Google Fonts  |
+
+---
+
 ## ✅ Requirements Mapping — CodeAlpha Task 2
 
 This project implements the **Social Media Platform** task. The spec calls for
@@ -174,13 +260,13 @@ posts, comments and followers.* Here is how each requirement is met:
 
 | CodeAlpha Task 2 Requirement | Where it's implemented |
 | ---------------------------- | ---------------------- |
-| **User profiles** (create account, profile with avatar/name/bio) | `POST /auth/register`, `GET /auth/me`, `GET /users/:username`, `PUT /users/me`; `register.html`, `profile.html` (with edit modal) |
-| **Posts** (users can post content) | `Post` model; `POST /posts`, `GET /posts` (feed), `GET /posts/:id`, `DELETE /posts/:id`; compose box in `index.html` |
+| **User profiles** (create account, profile with avatar/name/bio) | `POST /auth/register`, `GET /auth/me`, `GET /users/:username`, `PUT /users/me`; `register.html`, `profile.html` (with edit modal, cover banner, animated stats) |
+| **Posts** (users can post content) | `Post` model; `POST /posts`, `GET /posts` (feed), `GET /posts/:id`, `DELETE /posts/:id`; compose box in `index.html` with character counter |
 | **Comments** (comment on posts) | `Comment` model; `GET/POST /posts/:id/comments`, `DELETE /comments/:id`; inline comments in `postcard.js`, full thread in `post.html` |
-| **Like feature** | `Like` model with `@@unique([postId,userId])`; `POST/DELETE /posts/:id/like`; optimistic toggle in `postcard.js` |
-| **Follow feature** | `Follow` model with `@@unique([followerId,followingId])`; `POST/DELETE /users/:username/follow`, followers/following lists; feed = followed users + self |
+| **Like feature** | `Like` model with `@@unique([postId,userId])`; `POST/DELETE /posts/:id/like`; optimistic toggle with bounce animation in `postcard.js` |
+| **Follow feature** | `Follow` model with `@@unique([followerId,followingId])`; `POST/DELETE /users/:username/follow`, followers/following tabs; feed = followed users + self |
 | **Database** for users, posts, comments & followers | Prisma + SQLite schema in `prisma/schema.prisma` (User, Post, Comment, Like, Follow) |
-| **Authentication & security** | JWT bearer tokens (`tokens.js`, `middleware/auth.js`), bcrypt password hashing, input validation on every route |
+| **Authentication & security** | JWT bearer tokens (`tokens.js`, `middleware/auth.js`), bcrypt password hashing, input validation on every route, password strength meter |
 
 ---
 

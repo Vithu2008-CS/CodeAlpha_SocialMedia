@@ -1,5 +1,9 @@
 redirectIfAuthed();
 
+// Initialize password toggle and strength meter
+initPasswordToggle('passwordToggle', 'password');
+initPasswordStrength('password', 'strengthBar', 'strengthLabel');
+
 const form = document.getElementById('registerForm');
 const errorBox = document.getElementById('error');
 const submitBtn = document.getElementById('submitBtn');

@@ -1,5 +1,8 @@
 redirectIfAuthed();
 
+// Initialize password toggle
+initPasswordToggle('passwordToggle', 'password');
+
 const form = document.getElementById('loginForm');
 const errorBox = document.getElementById('error');
 const submitBtn = document.getElementById('submitBtn');

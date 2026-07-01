@@ -1,5 +1,5 @@
 // Reusable post-card component shared by the feed, profile, and single-post pages.
-// Renders a post with optimistic like toggle, inline comments, and author delete.
+// Renders a post with optimistic like toggle, inline comments, share, lightbox, and author delete.
 
 // Two-click confirm so we never trigger a blocking native confirm() dialog.
 function armConfirm(el, label, onConfirm) {
@@ -31,8 +31,8 @@ function commentHtml(c) {
         <a class="c-author" href="${profileUrl(c.author.username)}">${escapeHtml(c.author.displayName)}</a>
         <div class="c-text">${escapeHtml(c.content)}</div>
         <div class="c-meta">
-          ${timeAgo(c.createdAt)}
-          ${canDelete ? ' · <button class="comment-del" data-del-comment>Delete</button>' : ''}
+          <span class="time-tooltip" data-full-date="${escapeHtml(fullDate(c.createdAt))}">${timeAgo(c.createdAt)}</span>
+          ${canDelete ? ' · <button class="comment-del" data-del-comment aria-label="Delete comment">Delete</button>' : ''}
         </div>
       </div>
     </div>`;
@@ -52,24 +52,27 @@ function createPostCard(post, opts = {}) {
       <a href="${profileUrl(post.author.username)}">${avatarHtml(post.author, 44)}</a>
       <div class="names">
         <a class="name" href="${profileUrl(post.author.username)}">${escapeHtml(post.author.displayName)}</a>
-        <a class="handle" href="${profileUrl(post.author.username)}">@${escapeHtml(post.author.username)} · ${timeAgo(post.createdAt)}</a>
+        <a class="handle" href="${profileUrl(post.author.username)}">@${escapeHtml(post.author.username)} · <span class="time-tooltip" data-full-date="${escapeHtml(fullDate(post.createdAt))}">${timeAgo(post.createdAt)}</span></a>
       </div>
     </div>
     <a href="${postUrl(post.id)}" style="color:inherit">
       <div class="post-content">${escapeHtml(post.content)}</div>
     </a>
-    ${post.imageUrl ? `<img class="post-image" src="${escapeHtml(post.imageUrl)}" alt="" onerror="this.remove()">` : ''}
+    ${post.imageUrl ? `<img class="post-image" src="${escapeHtml(post.imageUrl)}" alt="Post image" data-lightbox onerror="this.remove()">` : ''}
     <div class="post-actions">
-      <button class="action-btn like-btn ${post.likedByMe ? 'liked' : ''}" data-like>
+      <button class="action-btn like-btn ${post.likedByMe ? 'liked' : ''}" data-like aria-label="${post.likedByMe ? 'Unlike' : 'Like'} this post">
         <span class="icon pop">${post.likedByMe ? '❤️' : '🤍'}</span>
         <span class="like-count">${post.likeCount}</span>
       </button>
-      <button class="action-btn" data-toggle-comments>
+      <button class="action-btn" data-toggle-comments aria-label="Toggle comments">
         <span class="icon">💬</span>
         <span class="comment-count">${post.commentCount}</span>
       </button>
-      <a class="action-btn" href="${postUrl(post.id)}"><span class="icon">🔗</span> View</a>
-      ${canDelete ? '<button class="action-btn danger" data-del-post style="margin-left:auto">🗑️ Delete</button>' : ''}
+      <button class="action-btn share-btn" data-share aria-label="Copy link to post">
+        <span class="icon">🔗</span>
+        <span class="share-label">Share</span>
+      </button>
+      ${canDelete ? '<button class="action-btn danger" data-del-post style="margin-left:auto" aria-label="Delete post">🗑️ Delete</button>' : ''}
     </div>
     <div class="comments" data-comments hidden>
       <div class="comment-list" data-comment-list></div>
@@ -77,14 +80,14 @@ function createPostCard(post, opts = {}) {
         me
           ? `<form class="comment-form" data-comment-form>
                ${avatarHtml(me, 34)}
-               <input class="grow" name="content" placeholder="Write a comment..." maxlength="500" autocomplete="off" required>
-               <button class="btn btn-sm" type="submit">Send</button>
+               <input class="grow" name="content" placeholder="Write a comment..." maxlength="500" autocomplete="off" required aria-label="Write a comment">
+               <button class="btn btn-sm" type="submit" aria-label="Send comment">Send</button>
              </form>`
           : ''
       }
     </div>`;
 
-  // --- Like (optimistic) ---
+  // --- Like (optimistic with bounce animation) ---
   const likeBtn = card.querySelector('[data-like]');
   let likeBusy = false;
   likeBtn.addEventListener('click', async () => {
@@ -95,10 +98,14 @@ function createPostCard(post, opts = {}) {
     const iconEl = likeBtn.querySelector('.icon');
     const prevCount = Number(countEl.textContent);
 
-    // optimistic flip
+    // optimistic flip + burst animation
     likeBtn.classList.toggle('liked', !wasLiked);
     iconEl.textContent = !wasLiked ? '❤️' : '🤍';
     countEl.textContent = String(prevCount + (wasLiked ? -1 : 1));
+    if (!wasLiked) {
+      likeBtn.classList.add('like-burst');
+      setTimeout(() => likeBtn.classList.remove('like-burst'), 500);
+    }
 
     try {
       const res = wasLiked
@@ -117,6 +124,35 @@ function createPostCard(post, opts = {}) {
       likeBusy = false;
     }
   });
+
+  // --- Share (copy permalink) ---
+  const shareBtn = card.querySelector('[data-share]');
+  if (shareBtn) {
+    shareBtn.addEventListener('click', async () => {
+      const url = `${location.origin}${postUrl(post.id)}`;
+      try {
+        await navigator.clipboard.writeText(url);
+        shareBtn.classList.add('copied');
+        shareBtn.querySelector('.share-label').textContent = 'Copied!';
+        toast('Link copied to clipboard', 'success');
+        setTimeout(() => {
+          shareBtn.classList.remove('copied');
+          shareBtn.querySelector('.share-label').textContent = 'Share';
+        }, 2000);
+      } catch {
+        toast('Could not copy link', 'error');
+      }
+    });
+  }
+
+  // --- Image lightbox ---
+  const img = card.querySelector('[data-lightbox]');
+  if (img) {
+    img.addEventListener('click', (e) => {
+      e.preventDefault();
+      openLightbox(img.src);
+    });
+  }
 
   // --- Comments ---
   const commentsWrap = card.querySelector('[data-comments]');

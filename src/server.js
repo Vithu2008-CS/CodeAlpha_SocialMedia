@@ -7,6 +7,7 @@ import authRoutes from './routes/auth.js';
 import userRoutes from './routes/users.js';
 import postRoutes from './routes/posts.js';
 import commentRoutes from './routes/comments.js';
+import searchRoutes from './routes/search.js';
 import { ApiError } from './lib/http.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -22,6 +23,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/comments', commentRoutes);
+app.use('/api/search', searchRoutes);
 
 // Any other /api/* path is a JSON 404 (never fall through to static HTML).
 app.use('/api', (req, res) => res.status(404).json({ error: 'API route not found' }));
