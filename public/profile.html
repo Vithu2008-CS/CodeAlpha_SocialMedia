@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile · Mini Social</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <header id="nav"></header>
+  <main class="container">
+    <section class="card" id="profileCard">
+      <div class="spinner">Loading profile…</div>
+    </section>
+
+    <h3 id="postsHeading" style="margin:18px 4px 12px; display:none">Posts</h3>
+    <div id="userPosts"></div>
+    <div id="postsStatus" class="spinner" style="display:none"></div>
+  </main>
+
+  <!-- Edit profile modal -->
+  <div class="modal-backdrop" id="editBackdrop">
+    <div class="modal">
+      <h2>Edit profile</h2>
+      <div class="error-box" id="editError"></div>
+      <form id="editForm">
+        <div class="field">
+          <label for="editDisplayName">Display name</label>
+          <input id="editDisplayName" maxlength="60" required />
+        </div>
+        <div class="field">
+          <label for="editBio">Bio</label>
+          <textarea id="editBio" maxlength="300" placeholder="Tell people about yourself"></textarea>
+        </div>
+        <div class="field">
+          <label for="editAvatar">Avatar URL</label>
+          <input id="editAvatar" maxlength="500" placeholder="https://..." />
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" id="editCancel">Cancel</button>
+          <button type="submit" class="btn" id="editSave">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/postcard.js"></script>
+  <script src="/js/profile.js"></script>
+</body>
+</html>
