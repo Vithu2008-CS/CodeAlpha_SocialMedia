@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign up · Mini Social</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="center-page">
+    <div class="card auth-card">
+      <h1>Create your account</h1>
+      <p class="auth-sub muted">Join the conversation in seconds.</p>
+      <div class="error-box" id="error"></div>
+      <form id="registerForm">
+        <div class="field">
+          <label for="displayName">Display name</label>
+          <input id="displayName" name="displayName" placeholder="Ada Lovelace" maxlength="60" autofocus />
+        </div>
+        <div class="field">
+          <label for="username">Username</label>
+          <input id="username" name="username" placeholder="ada" autocomplete="username" required />
+          <span class="small muted">3–30 chars: lowercase letters, numbers, underscore.</span>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" autocomplete="email" required />
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" autocomplete="new-password" minlength="6" required />
+          <span class="small muted">At least 6 characters.</span>
+        </div>
+        <button class="btn btn-block" type="submit" id="submitBtn">Sign up</button>
+      </form>
+      <p class="center muted" style="margin-top:16px">
+        Already have an account? <a href="/login.html">Log in</a>
+      </p>
+    </div>
+  </div>
+  <script src="/js/api.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/register.js"></script>
+</body>
+</html>

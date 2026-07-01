@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login · Mini Social</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="center-page">
+    <div class="card auth-card">
+      <h1>🌐 Mini Social</h1>
+      <p class="auth-sub muted">Welcome back. Sign in to continue.</p>
+      <div class="error-box" id="error"></div>
+      <form id="loginForm">
+        <div class="field">
+          <label for="username">Username or email</label>
+          <input id="username" name="username" autocomplete="username" required autofocus />
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" autocomplete="current-password" required />
+        </div>
+        <button class="btn btn-block" type="submit" id="submitBtn">Log in</button>
+      </form>
+      <p class="center muted" style="margin-top:16px">
+        No account? <a href="/register.html">Create one</a>
+      </p>
+      <p class="center small muted" style="margin-top:12px">
+        Demo: <b>alice</b> / <b>password123</b>
+      </p>
+    </div>
+  </div>
+  <script src="/js/api.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/login.js"></script>
+</body>
+</html>
